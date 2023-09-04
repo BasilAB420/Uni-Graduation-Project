@@ -11,6 +11,18 @@
           </div>
 
           <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+            <div class="app-brand demo">
+                <a href="/dashboard" class="app-brand-link">
+                    <span class="app-brand-logo demo">
+                        <img src="img/Lion.png" alt="" width="70px" height="60px">
+                    </span>
+                    <span class="demo menu-text text-dark ms-2"> UniHub Admin Dashboard</span>
+                </a>
+       
+                <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                    <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                </a>
+            </div>
               <!-- Search -->
               {{-- <div class="navbar-nav align-items-center">
                   <div class="nav-item d-flex align-items-center">
@@ -23,33 +35,58 @@
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                   <!-- Place this tag where you want the button to render. -->
-                  <li class="nav-item lh-1 me-3">
+                  {{-- <li class="nav-item lh-1 me-3">
                       <a class="github-button" href="https://github.com/themeselection/sneat-html-admin-template-free"
                           data-icon="octicon-star" data-size="large" data-show-count="true"
                           aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">Star</a>
-                  </li>
+                  </li> --}}
 
                   <!-- User -->
                   <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                      <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
+                      {{-- <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                           data-bs-toggle="dropdown">
                           <div class="avatar avatar-online">
                               <img src="img/user-icon.png" alt class="w-px-40 h-auto rounded-circle" />
                           </div>
-                      </a>
+                      </a> --}}
+                      <a class="dropdown-item" href="{{ route('logout') }}"
+                      onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                      <i class="bx bx-power-off me-2"></i>
+                      <span class="align-middle">Log Out</span></a>
+
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                      style="display: none;">
+                      @csrf
+                  </form>
+
                       <ul class="dropdown-menu dropdown-menu-end">
+                          {{-- @if (Route::has('login'))
+                              <div class="d-lg-flex sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+                                  @auth
+                                      <a href="{{ url('/dashboard') }}"
+                                          class="btn btn-primary px-3 d-none d-lg-block">Dashboard</a>
+                                  @else
+                                      <a href="{{ route('login') }}" class="btn btn-primary px-3 d-none d-lg-block m-1">Log
+                                          in</a>
+
+                                      @if (Route::has('register'))
+                                          <a href="{{ route('register') }}"
+                                              class="btn btn-success px-3 d-none d-lg-block m-1">Register</a>
+                                      @endif
+                                  @endauth
+                              </div>
+                          @endif --}}
                           <li>
                               <a class="dropdown-item" href="#">
                                   <div class="d-flex">
                                       <div class="flex-shrink-0 me-3">
                                           <div class="avatar avatar-online">
-                                              <img src="img/user-icon.png" alt
-                                                  class="w-px-40 h-auto rounded-circle" />
+                                              <img src="img/user-icon.png" alt class="w-px-40 h-auto rounded-circle" />
                                           </div>
                                       </div>
                                       <div class="flex-grow-1">
-                                          <span class="fw-semibold d-block">{{$user->name}}</span>
-                                          <small class="text-muted">{{$user->email}}</small>
+                                          <span class="fw-semibold d-block">{{ $user->name }}</span>
+                                          <small class="text-muted">{{ $user->email }}</small>
                                       </div>
                                   </div>
                               </a>
@@ -63,22 +100,13 @@
                                   <span class="align-middle">My Profile</span>
                               </a>
                           </li>
-                          {{-- <li>
+                          <li>
                               <a class="dropdown-item" href="#">
                                   <i class="bx bx-cog me-2"></i>
                                   <span class="align-middle">Settings</span>
                               </a>
                           </li>
-                          <li>
-                              <a class="dropdown-item" href="#">
-                                  <span class="d-flex align-items-center align-middle">
-                                      <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                                      <span class="flex-grow-1 align-middle">Billing</span>
-                                      <span
-                                          class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                                  </span>
-                              </a>
-                          </li> --}}
+
                           <li>
                               <div class="dropdown-divider"></div>
                           </li>
@@ -97,6 +125,8 @@
 
                       </ul>
                   </li>
+
+
                   <!--/ User -->
               </ul>
           </div>

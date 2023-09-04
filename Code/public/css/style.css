@@ -6,6 +6,9 @@
     --dark: #bba14f;
 }
 
+a:hover {
+    color: #bba14f !important;
+}
 
 .back-to-top {
     position: fixed;
@@ -45,7 +48,7 @@
 .btn.btn-outline-primary:hover,
 .btn.btn-secondary,
 .btn.btn-outline-secondary:hover {
-    color: #FFFFFF;
+    color: #FFFFFF !important;
 }
 
 .btn.btn-primary:hover {
@@ -476,4 +479,8 @@
     color: #FFFFFF;
 }
 
-
+@media (max-width: 330px) {
+    .contact-email {
+        font-size: 12px;
+    }
+}

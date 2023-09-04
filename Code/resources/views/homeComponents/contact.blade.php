@@ -1,4 +1,4 @@
-<div class="container-fluid appointment my-5 py-5 wow fadeIn" data-wow-delay="0.1s">
+<div id="contact" class="container-fluid appointment my-5 py-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container py-5">
         <div class="row g-5">
             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
@@ -12,7 +12,7 @@
                 <div class="bg-white rounded p-3">
                     <div class="d-flex align-items-center bg-primary rounded p-3">
                         <img class="flex-shrink-0 rounded-circle me-3" src="img/Basil.jpg" alt="" width="50px" height="50px"/>
-                        <h5 class="text-white mb-0">E-mail: basil.ab@icloud.com</h5>
+                        <p class="text-white contact-email mb-0">E-mail: basil.ab@icloud.com</p>
                     </div>
                 </div>
             </div>
