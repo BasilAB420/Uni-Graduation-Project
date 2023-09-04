@@ -11,7 +11,7 @@
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
 
                         <div class="team-item rounded">
-                            <img class="img-fluid" src="img/book1.jpg" alt="" />
+                            <img class="img-fluid" src="{{ 'images/' . $good->image }}" alt=""/>
                             <div class="text-center p-4">
                                 <p>Poster: {{ $good->poster_name }}</p>
                                 <h5>{{ $good->item_name }}</h5>

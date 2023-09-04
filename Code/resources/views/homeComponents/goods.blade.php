@@ -19,7 +19,7 @@
                 <div class="owl-carousel testimonial-carousel">
                     @foreach ($goods as $good)
                     <div class="testimonial-item text-center">
-                        <img class="img-fluid rounded mx-auto mb-4" src="img/book1.jpg" alt="" />
+                        <img class="img-fluid rounded mx-auto mb-4" src="{{ 'images/' . $good->image }}" alt="" />
                         <h6 class="">{{ $good->university_name }}</h6>
                         <h2>{{ $good->item_name }}</h2>
                         <p class="">Poster Name: {{ $good->poster_name }}</p>
