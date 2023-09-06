@@ -3,25 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
-use App\Models\Goods;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class GoodsController extends Controller
+class EmployeeController extends Controller
 {
 
     // set index page view
     public function index()
     {
         $user = User::first();
-        return view('admin.pages.goods.goods', compact(['user']));
+        return view('admin.pages.goods.goods', compact('user'));
     }
 
     // handle fetch all eamployees ajax request
     public function fetchAll()
     {
-        $emps = Goods::all();
+        $emps = Employee::all();
         $output = '';
         if ($emps->count() > 0) {
             $output .= '<table class="table table-striped table-sm text-center align-middle">
@@ -70,8 +69,9 @@ class GoodsController extends Controller
         $fileName = time() . '.' . $file->getClientOriginalExtension();
         $file->storeAs('public/images', $fileName);
 
-        $empData = ['item_name' => $request->item_name, 'item_university' => $request->item_university, 'poster_name' => $request->poster_name, 'poster_email' => $request->poster_email, 'poster_phone' => $request->poster_phone,'price' => $request->price, 'avatar' => $fileName];
-        Goods::create($empData);
+        $empData = ['item_name' => $request->item_name, 'item_university' => $request->item_university, 'poster_name' => $request->poster_name, 
+        'poster_email' => $request->poster_email, 'poster_phone' => $request->poster_phone,'price' => $request->price, 'avatar' => $fileName];
+        Employee::create($empData);
         return response()->json([
             'status' => 200,
         ]);
@@ -81,7 +81,7 @@ class GoodsController extends Controller
     public function edit(Request $request)
     {
         $id = $request->id;
-        $emp = Goods::find($id);
+        $emp = Employee::find($id);
         return response()->json($emp);
     }
 
@@ -89,7 +89,7 @@ class GoodsController extends Controller
     public function update(Request $request)
     {
         $fileName = '';
-        $emp = Goods::find($request->emp_id);
+        $emp = Employee::find($request->emp_id);
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
             $fileName = time() . '.' . $file->getClientOriginalExtension();
@@ -101,7 +101,8 @@ class GoodsController extends Controller
             $fileName = $request->emp_avatar;
         }
 
-        $empData = ['item_name' => $request->item_name, 'item_university' => $request->item_university, 'poster_name' => $request->poster_name, 'poster_email' => $request->poster_email, 'poster_phone' => $request->poster_phone,'price' => $request->price, 'avatar' => $fileName];
+        $empData = ['item_name' => $request->item_name, 'item_university' => $request->item_university, 'poster_name' => $request->poster_name, 
+        'poster_email' => $request->poster_email, 'poster_phone' => $request->poster_phone,'price' => $request->price, 'avatar' => $fileName];
 
         $emp->update($empData);
         return response()->json([
@@ -113,9 +114,9 @@ class GoodsController extends Controller
     public function delete(Request $request)
     {
         $id = $request->id;
-        $emp = Goods::find($id);
+        $emp = Employee::find($id);
         if (Storage::delete('public/images/' . $emp->avatar)) {
-            Goods::destroy($id);
+            Employee::destroy($id);
         }
     }
 }

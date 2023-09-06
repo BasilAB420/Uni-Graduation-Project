@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
 use App\Models\Goods;
 use App\Models\Universities;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class HomeController extends Controller
     public function index()
     {
         $universities = Universities::all();
-        $goods = Goods::all();
+        $goods = Employee::all();
         return view('home', compact(['universities', 'goods']));
     }
 

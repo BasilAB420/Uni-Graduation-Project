@@ -2,72 +2,110 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\Universities;
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
-use Yajra\DataTables\Facades\DataTables;
 
 class UniversitiesController extends Controller
 {
+
+    // set index page view
     public function index()
     {
         $user = User::first();
-
-        if (request()->ajax()) {
-            return datatables()->of(Universities::select('*'))
-                ->addColumn('action', 'product-button')
-                ->addColumn('image', 'image')
-                ->rawColumns(['action', 'image'])
-                ->addIndexColumn()
-                ->make(true);
-        }
-        return view('admin.pages.universities.universities', compact('user'));
+        return view('admin.pages.universities.universities', compact(['user']));
     }
 
+    // handle fetch all eamployees ajax request
+    public function fetchAll()
+    {
+        $universities = Universities::all();
+        $output = '';
+        if ($universities->count() > 0) {
+            $output .= '<table class="table table-striped table-sm text-center align-middle">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Avatar</th>
+                <th>Name</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>';
+            foreach ($universities as $university) {
+                $output .= '<tr>
+                <td>' . $university->id . '</td>
+                <td><img src="storage/images/' . $university->avatar . '" width="100" class="img-thumbnail rounded p-1"></td>
+                <td>' . $university->name . ' </td>
+                <td>
+                  <a href="#" id="' . $university->id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editEmployeeModal"><i class="bi-pencil-square h4"></i></a>
+
+                  <a href="#" id="' . $university->id . '" class="text-danger mx-1 deleteIcon"><i class="bi-trash h4"></i></a>
+                </td>
+              </tr>';
+            }
+            $output .= '</tbody></table>';
+            echo $output;
+        } else {
+            echo '<h1 class="text-center text-secondary my-5">No record present in the database!</h1>';
+        }
+    }
+
+    // handle insert a new employee ajax request
     public function store(Request $request)
     {
-        request()->validate([
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        $file = $request->file('avatar');
+        $fileName = time() . '.' . $file->getClientOriginalExtension();
+        $file->storeAs('public/images', $fileName);
+
+        $universityData = ['name' => $request->name, 'avatar' => $fileName];
+        Universities::create($universityData);
+        return response()->json([
+            'status' => 200,
         ]);
+    }
 
-        $productId = $request->product_id;
+    // handle edit an employee ajax request
+    public function edit(Request $request)
+    {
+        $id = $request->id;
+        $university = Universities::find($id);
+        return response()->json($university);
+    }
 
-        $details = ['name' => $request->name];
-
-        if ($files = $request->file('image')) {
-
-            //delete old file
-            File::delete('public/product/' . $request->hidden_image);
-
-            //insert new file
-            $destinationPath = 'public/product/'; // upload path
-            $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-            $files->move($destinationPath, $profileImage);
-            $details['image'] = "$profileImage";
+    // handle update an employee ajax request
+    public function update(Request $request)
+    {
+        $fileName = '';
+        $universities = Universities::find($request->universities_id);
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/images', $fileName);
+            if ($universities->avatar) {
+                Storage::delete('public/images/' . $universities->avatar);
+            }
+        } else {
+            $fileName = $request->universities_avatar;
         }
 
-        $product   =   Universities::updateOrCreate(['id' => $productId], $details);
+        $universityData = ['name' => $request->name, 'avatar' => $fileName];
 
-        return Response::json($product);
+        $universities->update($universityData);
+        return response()->json([
+            'status' => 200,
+        ]);
     }
 
-    public function edit($id)
+    // handle delete an employee ajax request
+    public function delete(Request $request)
     {
-        $where = array('id' => $id);
-        $product  = Universities::where($where)->first();
-
-        return Response::json($product);
-    }
-    public function destroy($id)
-    {
-        $data = Universities::where('id', $id)->first(['image']);
-        File::delete('public/product/' . $data->image);
-        $product = Universities::where('id', $id)->delete();
-
-        return Response::json($product);
+        $id = $request->id;
+        $universityData = Universities::find($id);
+        if (Storage::delete('public/images/' . $universityData->avatar)) {
+            Universities::destroy($id);
+        }
     }
 }

@@ -4,14 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+class CreateEmployeesTable extends Migration {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
-    {
-        Schema::create('goods', function (Blueprint $table) {
+    public function up() {
+        Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->string('item_name');
             $table->string('item_university');
@@ -26,9 +26,10 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
-    {
-        Schema::dropIfExists('goods');
+    public function down() {
+        Schema::dropIfExists('employees');
     }
-};
+}

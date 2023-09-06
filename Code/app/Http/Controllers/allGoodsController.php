@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
 use App\Models\Goods;
 use App\Models\Universities;
 use App\Models\User;
@@ -17,7 +18,7 @@ class allGoodsController extends Controller
     {
         $user = User::all();
         $universities = Universities::all();
-        $goods = Goods::all();
+        $goods = Employee::all();
         return view('pages.allgoods', compact(['universities', 'goods', 'user']));
     }
 

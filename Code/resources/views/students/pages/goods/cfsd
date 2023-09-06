@@ -1,0 +1,55 @@
+ <form action="#" method="POST" id="add_employee_form" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body p-4 bg-light">
+                        <div class="form-group">
+                            <label for="item_name" class="col-sm-2 control-label">item name</label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="item_name" name="item_name" placeholder="Enter item name"
+                                    value="" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="item_university" class="col-sm-2 control-label">item university</label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="item_university" name="item_university"
+                                    placeholder="Enter item university" value="" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="poster_name" class="col-sm-2 control-label">poster name</label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="poster_name" name="poster_name"
+                                    placeholder="Enter poster name" value="" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="poster_email" class="col-sm-2 control-label">poster email</label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="poster_email" name="poster_email"
+                                    placeholder="Enter poster email" value="" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="poster_phone" class="col-sm-2 control-label">poster phone</label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="poster_phone" name="poster_phone"
+                                    placeholder="Enter poster phone" value="" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="price" class="col-sm-2 control-label">price</label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="price" name="price" placeholder="Enter price"
+                                    value="" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="my-2">
+                            <label for="avatar">Select Avatar</label>
+                            <input type="file" name="avatar" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="add_employee_btn" class="btn btn-primary">Add Employee</button>
+                    </div>
+                </form>

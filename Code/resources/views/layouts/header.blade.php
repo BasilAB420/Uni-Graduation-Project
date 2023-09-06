@@ -27,7 +27,7 @@
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top px-4 px-lg-5">
     <a href="index.html" class="navbar-brand d-flex align-items-center">
         <h3 class="m-0">
-           <a href="/"> <img class="img-fluid" src="{{ asset('img/Lion.png') }}" alt="logo" />UniHub</a>
+            <a href="/"> <img class="img-fluid" src="{{ asset('img/Lion.png') }}" alt="logo" />UniHub</a>
         </h3>
     </a>
     <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -35,27 +35,37 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto bg-light rounded pe-4 py-3 py-lg-0">
-            <a href="/" class="nav-item nav-link {{ (request()->is('/')) ? 'active' : '' }}">Home</a>
-            <a href="#about" class="nav-item nav-link {{ (request()->is('#about')) ? 'active' : '' }}">About Us</a>
-            <a href="/allgoods" class="nav-item nav-link {{ (request()->is('allgoods')) ? 'active' : '' }}">All Goods</a>
-            <a href="#contact" class="nav-item nav-link {{ (request()->is('#contact')) ? 'active' : '' }}">Contact Us</a>
+            <a href="/" class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">Home</a>
+            <a href="#about" class="nav-item nav-link {{ request()->is('#about') ? 'active' : '' }}">About Us</a>
+            <a href="/allgoods" class="nav-item nav-link {{ request()->is('allgoods') ? 'active' : '' }}">All
+                Goods</a>
+            <a href="#contact" class="nav-item nav-link {{ request()->is('#contact') ? 'active' : '' }}">Contact
+                Us</a>
+            @if (Route::has('login'))
+                <div class="d-lg-flex sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+                    @auth
+                        <a href="{{ url('/dashboard') }}" class="btn btn-primary px-3 mx-3 d-lg-block m-1">Dashboard</a>
+                        <a class="btn btn-light px-3 mx-1 d-lg-block m-1" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="bx bx-power-off me-2"></i>
+                            <span class="align-middle">Log Out</span></a>
 
-            
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    @else
+                        <a href="{{ route('login') }}" class="btn btn-primary px-3 mx-3 d-lg-block m-1">Log in</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="btn btn-light px-3 mx-1 d-lg-block m-1">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
+
         </div>
     </div>
 
-    {{-- @if (Route::has('login'))
-        <div class="d-lg-flex sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
-            @auth
-                <a href="{{ url('/dashboard') }}" class="btn btn-primary px-3 d-none d-lg-block">Dashboard</a>
-            @else
-                <a href="{{ route('login') }}" class="btn btn-primary px-3 d-none d-lg-block m-1">Log in</a>
 
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="btn btn-success px-3 d-none d-lg-block m-1">Register</a>
-                @endif
-            @endauth
-        </div>
-    @endif --}}
 </nav>
 <!-- Navbar End -->

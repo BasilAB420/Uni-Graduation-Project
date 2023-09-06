@@ -12,6 +12,13 @@
 
           <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
             <div class="app-brand demo">
+                <a href="/dashboard" class="app-brand-link">
+                    <span class="app-brand-logo demo">
+                        <img src="img/Lion.png" alt="" width="70px" height="60px">
+                    </span>
+                    <span class="demo menu-text text-dark ms-2"> UniHub Admin Dashboard</span>
+                </a>
+       
                 <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
                     <i class="bx bx-chevron-left bx-sm align-middle"></i>
                 </a>
@@ -35,7 +42,7 @@
                   </li> --}}
 
                   <!-- User -->
-                  {{-- <li class="nav-item navbar-dropdown dropdown-user dropdown"> --}}
+                  <li class="nav-item navbar-dropdown dropdown-user dropdown">
                       {{-- <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                           data-bs-toggle="dropdown">
                           <div class="avatar avatar-online">

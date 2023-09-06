@@ -10,15 +10,15 @@
                     @foreach ($universities as $uni)
                         <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                             <div class="card text-center team-item rounded p-2">
-                                @if ($uni->image)
-                                    <img class="img-fluid" src="{{ 'public/product/' . $uni->image }}"
+                                @if ($uni->avatar)
+                                    <img class="img-fluid" src="{{ asset('storage/images/'.$uni->avatar) }}"
                                     
-                                        style="height: 250px; width:auto;">
+                                    style="height: 250px; width: 100%;">
                                 @else
                                     <span>No image found!</span>
                                 @endif
                                 <div class="p-4">
-                                    <h5>{{ $uni->name }}</h5>
+                                    <h6>{{ $uni->name }}</h6>
                                 </div>
                             </div>
                         </div>
